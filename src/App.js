@@ -1,10 +1,10 @@
+import React, { Component } from "react";
+import General from "./components/General";
 
-
-function App() {
-  return (
-    <div className="App">
-    </div>
-  );
+class App extends Component {
+  render() {
+    return <General/>;
+  }
 }
 
 export default App;
