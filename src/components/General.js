@@ -1,5 +1,6 @@
 import React, { Component } from "react";
 
+
 class General extends Component {
   constructor(props) {
     super(props);
@@ -7,16 +8,8 @@ class General extends Component {
     this.state = {
       first_name: "",
       last_name: "",
-      title: "",
       email: "",
       tel: "",
-      saved_state: {
-        first_name: "",
-        last_name: "",
-        title: "",
-        email: "",
-        tel: "",
-      },
     };
   }
 
@@ -28,28 +21,17 @@ class General extends Component {
 
   handleSubmit = (e) => {
     e.preventDefault();
-    this.setState({
-      saved_state: {
-        first_name: this.state.first_name,
-        last_name: this.state.last_name,
-        title: this.state.title,
-        email: this.state.email,
-        tel: this.state.tel,
-      },
-      first_name: "",
-      last_name: "",
-      title: "",
-      email: "",
-      tel: "",
-    });
+    this.props.save('general', this.state);
+
   };
 
   render() {
     return (
       <div>
+        
         <form onSubmit = {this.handleSubmit}>
           <label>
-            First Name:
+            <span>First Name:</span>
             <input
               type="text"
               id="first_name"
@@ -58,7 +40,7 @@ class General extends Component {
             />
           </label>
           <label>
-            Last Name:
+            <span>Last Name:</span>
             <input
               type="text"
               id="last_name"
@@ -67,7 +49,7 @@ class General extends Component {
             />
           </label>
           <label>
-            Email:
+            <span>Email:</span>
             <input
               type="text"
               id="email"
@@ -76,12 +58,12 @@ class General extends Component {
             />
           </label>
           <label>
-            Title:
+            <span>Phone Number:</span>
             <input
-              type="text"
-              id="title"
+              type="tel"
+              id="tel"
               onChange={this.handleChange}
-              value={this.state.title}
+              value={this.state.tel}
             />
           </label>
           <button type = 'submit'>Save</button>

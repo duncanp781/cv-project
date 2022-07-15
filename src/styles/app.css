@@ -1,0 +1,43 @@
+html, body{
+  height: 100%;
+  width: 100%
+}
+
+
+.container{
+  display: grid;
+  grid-template-columns: 1fr 1fr;
+}
+
+.preview{
+  width: 100%;
+  display: flex;
+  justify-content: center;
+}
+
+.general form{
+  display: flex;
+  flex-direction: column;
+  gap: 10px
+}
+
+.general label {
+  display: grid;
+  grid-template-columns: 120px 1fr;
+}
+
+#general-title{
+  font-weight: bold;
+}
+
+.preview .display-container{
+  width: 340px;
+  height: 440px;
+  border: 2px solid black;
+}
+
+.preview #name{
+  padding: 8px;
+  font-weight: bold;
+  font-size: 1.2rem;
+}
