@@ -21,7 +21,8 @@ html, body{
   gap: 10px
 }
 
-.school form{
+.school form,
+.job form{
   display: grid;
   gap: 10px;
   grid-template-columns: 1fr 1fr;
@@ -35,17 +36,26 @@ html, body{
 
 
 .general label,
-.school label {
+.school label,
+.job label {
   display: grid;
   grid-template-columns: 120px 1fr;
 }
+
+.job label[for = 'company'],
+.job label[for = 'title'],
+.job label[for = 'responsibilities']{
+  grid-column: 1/-1;
+}
+
 
 .title{
   font-weight: bold;
 }
 
 .fields,
-.education{
+.education,
+.work{
   display: flex;
   flex-direction: column;
   gap: 8px;

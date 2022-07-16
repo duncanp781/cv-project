@@ -3,6 +3,7 @@ import General from "./components/General";
 import Display from "./components/Display";
 import Education from "./components/Education";
 import "./styles/app.css";
+import Work from "./components/Work";
 
 class App extends Component {
   constructor(props) {
@@ -14,27 +15,32 @@ class App extends Component {
   }
 
   save = (name, obj) => {
-    Object.keys(obj).forEach(key => {
-        if (obj[key] === undefined) {
-          delete obj[key]
-        }
-         
+    Object.keys(obj).forEach((key) => {
+      if (obj[key] === undefined) {
+        delete obj[key];
+      }
     });
     this.setState({
-      [name]: obj} );
+      [name]: obj,
+    });
   };
 
   render() {
     return (
       <div className="container">
         <div className="fields">
-          <span className = 'title'>General: </span>
-          <General save={this.save}  />
-          <span className = 'title'>Education: </span>
-          <Education save = {this.save}/>
+          <span className="title">General: </span>
+          <General save={this.save} />
+          <span className="title">Education: </span>
+          <Education save={this.save} />
+          <span className="title">Work: </span>
+          <Work save={this.save} />
         </div>
         <div className="preview">
-          <Display general={this.state.general} education = {this.state.education} />
+          <Display
+            general={this.state.general}
+            education={this.state.education}
+          />
         </div>
       </div>
     );
