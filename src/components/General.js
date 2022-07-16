@@ -22,12 +22,12 @@ class General extends Component {
   handleSubmit = (e) => {
     e.preventDefault();
     this.props.save('general', this.state);
-
   };
+
 
   render() {
     return (
-      <div>
+      <div className = 'general'>
         
         <form onSubmit = {this.handleSubmit}>
           <label>

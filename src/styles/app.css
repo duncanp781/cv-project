@@ -21,23 +21,85 @@ html, body{
   gap: 10px
 }
 
-.general label {
+.school form{
+  display: grid;
+  gap: 10px;
+  grid-template-columns: 1fr 1fr;
+}
+
+.school label[for = 'school'],
+.school label[for = 'major'],
+.school label[for = 'gpa']{
+  grid-column: 1/-1;
+}
+
+
+.general label,
+.school label {
   display: grid;
   grid-template-columns: 120px 1fr;
 }
 
-#general-title{
+.title{
   font-weight: bold;
 }
 
-.preview .display-container{
+.fields,
+.education{
+  display: flex;
+  flex-direction: column;
+  gap: 8px;
+}
+
+
+.display-container{
   width: 340px;
   height: 440px;
   border: 2px solid black;
+  padding: 18px;
+  position: fixed;
 }
 
-.preview #name{
+.display-container{
+  font-size: 0.8rem;
+}
+
+.display-container #display-name{
   padding: 8px;
   font-weight: bold;
-  font-size: 1.2rem;
+  font-size: 1.4em;
+}
+
+.display-container #head-second{
+  font-style: italic;
+  color: darkslategray;
+  text-align: right;
+}
+
+.display-title{
+  font-size: 1.2em;
+  font-weight: bold;
+}
+
+.display-school-first{
+  display: flex;
+  justify-content: space-between;
+}
+
+.display-school-name{
+  font-weight: bold;
+}
+
+.display-school-time{
+  font-style: italic;
+  color: darkslategray;
+}
+
+.display-school-second{
+  font-style: italic;
+  color: darkslategray;
+}
+
+.tab{
+  margin-left: 20px;
 }

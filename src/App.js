@@ -1,6 +1,7 @@
 import React, { Component } from "react";
 import General from "./components/General";
 import Display from "./components/Display";
+import Education from "./components/Education";
 import "./styles/app.css";
 
 class App extends Component {
@@ -8,26 +9,32 @@ class App extends Component {
     super(props);
     this.state = {
       general: {},
+      education: {},
     };
   }
 
   save = (name, obj) => {
-    this.setState({
-      [name]: obj,
+    Object.keys(obj).forEach(key => {
+        if (obj[key] === undefined) {
+          delete obj[key]
+        }
+         
     });
+    this.setState({
+      [name]: obj} );
   };
 
   render() {
     return (
       <div className="container">
         <div className="fields">
-          <span id="general-title">General: </span>
-          <div class="general">
-            <General save={this.save} className="general" />
-          </div>
+          <span className = 'title'>General: </span>
+          <General save={this.save}  />
+          <span className = 'title'>Education: </span>
+          <Education save = {this.save}/>
         </div>
         <div className="preview">
-          <Display general={this.state.general} />
+          <Display general={this.state.general} education = {this.state.education} />
         </div>
       </div>
     );
