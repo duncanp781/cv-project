@@ -3,11 +3,12 @@ import uniqid from "uniqid";
 
 class Display extends Component {
   render() {
-    let { general, education } = this.props;
+    let { general, education, work } = this.props;
     return (
       <div className="display-container">
         <HeadDisplay general={general} />
         <EducationDisplay education={education} />
+        <WorkDisplay work = {work}/>
       </div>
     );
   }
@@ -63,6 +64,49 @@ class SchoolDisplay extends Component {
         </div>
       </div>
     );
+  }
+}
+
+class WorkDisplay extends Component {
+  render() {
+    let { work } = this.props;
+    return (
+      <div className="display-work">
+        <div className = 'display-title'>Work Experience: </div>
+        {Object.keys(work).map((entry) => {
+          return <JobDisplay key={uniqid()} job={work[entry]} />;
+        })}
+      </div>
+    );
+  }
+}
+
+class JobDisplay extends Component {
+  render(){
+    let {job } = this.props;
+    console.log(job.responsibilities);
+    return ( <div className = 'display-job'>
+      <div className = 'display-job-first'>
+        <span className = 'display-job-left'>
+        <span className = 'display-job-company'>{job.company}</span>
+        <span className = 'display-job-title'>  {job.title}</span>
+        </span>
+        
+        <span className = 'display-job-time'>
+        {job.start} {job.start ? '-': ''} {job.end ? job.end : "Present"}
+        </span>
+          
+      </div>
+      <div className = 'display-job-second'>
+          <ul>
+            {Object.keys(job.responsibilities).map(entry => {
+              return <li>{job.responsibilities[entry]}</li>
+            })}
+            
+          </ul>
+        </div>  
+    </div>)
+
   }
 }
 

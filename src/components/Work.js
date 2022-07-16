@@ -59,14 +59,30 @@ class Job extends Component {
     };
   }
 
+  //This is more complicated than a normal save because we don't want to save the
+  //Undefined entries in responsibilities. So this scans through and removes them
   save = (id, info) => {
     this.setState(
       {
         [id]: info,
       },
-      () => this.props.save("responsibilities", this.state)
+      () => {
+        this.setState(
+          (prevState) => {
+            let obj = prevState.responsibilities;
+            Object.keys(obj).forEach((key) => {
+              if (obj[key] === undefined) {
+                delete obj[key];
+              }
+            });
+            return prevState;
+          },
+          () => this.props.save(this.props.id, this.state)
+        );
+      }
     );
   };
+
 
   handleChange = (e) => {
     this.setState({
@@ -136,6 +152,5 @@ class Job extends Component {
     );
   }
 }
-
 
 export default Work;

@@ -11,6 +11,7 @@ class App extends Component {
     this.state = {
       general: {},
       education: {},
+      work: {},
     };
   }
 
@@ -40,6 +41,7 @@ class App extends Component {
           <Display
             general={this.state.general}
             education={this.state.education}
+            work = {this.state.work}
           />
         </div>
       </div>

@@ -91,25 +91,34 @@ html, body{
   font-weight: bold;
 }
 
-.display-school-first{
+.display-school-first,
+.display-job-first{
   display: flex;
   justify-content: space-between;
 }
 
-.display-school-name{
+.display-school-name,
+.display-job-company{
   font-weight: bold;
 }
 
-.display-school-time{
+.display-school-time,
+.display-job-time,
+.display-job-title{
   font-style: italic;
   color: darkslategray;
 }
 
-.display-school-second{
+.display-school-second,
+.display-job-second{
   font-style: italic;
   color: darkslategray;
 }
 
 .tab{
   margin-left: 20px;
+}
+
+ul{
+  margin: 0px;
 }
