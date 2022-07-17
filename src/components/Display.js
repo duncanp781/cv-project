@@ -8,7 +8,7 @@ class Display extends Component {
       <div className="display-container">
         <HeadDisplay general={general} />
         <EducationDisplay education={education} />
-        <WorkDisplay work = {work}/>
+        <WorkDisplay work={work} />
       </div>
     );
   }
@@ -37,9 +37,12 @@ class HeadDisplay extends Component {
 class EducationDisplay extends Component {
   render() {
     let { education } = this.props;
+
     return (
       <div className="display-education">
-        <div className = 'display-title'>Education: </div>
+        {Object.keys(education).length !== 0 && (
+          <div className="display-title">{"Education: "}</div>
+        )}
         {Object.keys(education).map((entry) => {
           return <SchoolDisplay key={uniqid()} school={education[entry]} />;
         })}
@@ -56,11 +59,17 @@ class SchoolDisplay extends Component {
         <div className="display-school-first">
           <span className="display-school-name">{school.school}</span>
           <span className="display-school-time">
-            {school.start} {school.start ? '-': ''} {school.end ? school.end : "Present"}
+            {school.start} {school.start ? "-" : ""}{" "}
+            {school.end ? school.end : "Present"}
           </span>
         </div>
-        <div className = 'display-school-second'>
-          <span className = 'tab'>{school.major}{school.major && school.gpa? ', ': ''}{school.gpa? 'GPA: ' : ''}{school.gpa}</span>
+        <div className="display-school-second">
+          <span className="tab">
+            {school.major}
+            {school.major && school.gpa ? ", " : ""}
+            {school.gpa ? "GPA: " : ""}
+            {school.gpa}
+          </span>
         </div>
       </div>
     );
@@ -72,7 +81,9 @@ class WorkDisplay extends Component {
     let { work } = this.props;
     return (
       <div className="display-work">
-        <div className = 'display-title'>Work Experience: </div>
+        {Object.keys(work).length !== 0 && (
+          <div className="display-title">{"Work Experience: "}</div>
+        )}
         {Object.keys(work).map((entry) => {
           return <JobDisplay key={uniqid()} job={work[entry]} />;
         })}
@@ -82,31 +93,31 @@ class WorkDisplay extends Component {
 }
 
 class JobDisplay extends Component {
-  render(){
-    let {job } = this.props;
-    console.log(job.responsibilities);
-    return ( <div className = 'display-job'>
-      <div className = 'display-job-first'>
-        <span className = 'display-job-left'>
-        <span className = 'display-job-company'>{job.company}</span>
-        <span className = 'display-job-title'>  {job.title}</span>
-        </span>
-        
-        <span className = 'display-job-time'>
-        {job.start} {job.start ? '-': ''} {job.end ? job.end : "Present"}
-        </span>
+  render() {
+    let { job } = this.props;
+    return (
+      <div className="display-job">
+        <div className="display-job-first">
+          <span className="display-job-left">
+            <span className="display-job-company">{job.company}</span>
+            <span className="display-job-title"> {job.title}</span>
+          </span>
+        </div>
+        <div className="display-job-second">
+          <span className="display-job-time">
+            {job.start} {job.start ? "-" : ""} {job.end ? job.end : "Present"}
+          </span>
+          {Object.keys(job.responsibilities).length !== 0 && (
+            <ul>
+              {Object.keys(job.responsibilities).map((entry) => {
+                return <li>{job.responsibilities[entry]}</li>;
+              })}
+            </ul>
+          )}
           
+        </div>
       </div>
-      <div className = 'display-job-second'>
-          <ul>
-            {Object.keys(job.responsibilities).map(entry => {
-              return <li>{job.responsibilities[entry]}</li>
-            })}
-            
-          </ul>
-        </div>  
-    </div>)
-
+    );
   }
 }
 

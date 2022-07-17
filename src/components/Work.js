@@ -24,6 +24,7 @@ class Work extends Component {
     );
   };
 
+
   delete = (id) => {
     this.setState({ [id]: undefined }, () =>
       this.props.save("work", this.state)
@@ -38,7 +39,7 @@ class Work extends Component {
             return (
               <Job save={this.save} key={id} id={id} delete={this.delete} />
             );
-          return;
+          return null;
         })}
         <button onClick={this.handleClick}>Add Job</button>
       </div>
@@ -76,8 +77,7 @@ class Job extends Component {
               }
             });
             return prevState;
-          },
-          () => this.props.save(this.props.id, this.state)
+          }
         );
       }
     );

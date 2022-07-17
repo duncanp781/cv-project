@@ -30,18 +30,24 @@ class App extends Component {
     return (
       <div className="container">
         <div className="fields">
-          <span className="title">General: </span>
-          <General save={this.save} />
-          <span className="title">Education: </span>
-          <Education save={this.save} />
-          <span className="title">Work: </span>
-          <Work save={this.save} />
+          <div class="section">
+            <span className="title">General: </span>
+            <General save={this.save} />
+          </div>
+          <div class="section">
+            <span className="title">Education: </span>
+            <Education save={this.save} />
+          </div>
+          <div class="section">
+            <span className="title">Work: </span>
+            <Work save={this.save} />
+          </div>
         </div>
         <div className="preview">
           <Display
             general={this.state.general}
             education={this.state.education}
-            work = {this.state.work}
+            work={this.state.work}
           />
         </div>
       </div>

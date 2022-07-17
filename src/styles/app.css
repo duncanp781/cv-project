@@ -1,18 +1,29 @@
-html, body{
-  height: 100%;
-  width: 100%
-}
 
+html,body,
+#root{
+  height: 100%;
+  padding: 0px;
+  margin: 0px;
+  background-color: blue;
+}
 
 .container{
+  
   display: grid;
   grid-template-columns: 1fr 1fr;
+  height: 100%;
+  padding: 0px;
+  margin: 0px;
 }
 
+
+
 .preview{
+  position: relative;
   width: 100%;
   display: flex;
   justify-content: center;
+  align-items: center;
 }
 
 .general form{
@@ -53,6 +64,7 @@ html, body{
   font-weight: bold;
 }
 
+
 .fields,
 .education,
 .work{
@@ -61,18 +73,55 @@ html, body{
   gap: 8px;
 }
 
+.fields{
+  align-items: center;
+  padding: 32px;
+}
 
+.section{
+  border-radius: 8px;
+  padding: 16px;
+  background-color: white;
+  width: 100%;
+}
+
+.section button{
+  border: none;
+  border-radius: 8px;
+  padding: 8px;
+}
+
+
+
+.responsibilities{
+  display: flex;
+  flex-direction: column;
+  gap: 8px;
+
+}
+
+.responsibility{
+  display: flex;
+}
+
+.responsibility input{
+  flex: 1;
+}
+ 
 .display-container{
-  width: 340px;
-  height: 440px;
+  position: absolute;
+  top: 50%;
+  transform: translateY(-50%);
+  width: calc(70vh * (8.5/11));
+  height: 70vh;
   border: 2px solid black;
   padding: 18px;
   position: fixed;
+  background-color: white;
+  font-size: max(0.8rem, 2.4vh);
 }
 
-.display-container{
-  font-size: 0.8rem;
-}
+
 
 .display-container #display-name{
   padding: 8px;
@@ -107,6 +156,11 @@ html, body{
 .display-job-title{
   font-style: italic;
   color: darkslategray;
+}
+
+.display-job-time{
+  display: flex;
+  justify-content: flex-end;
 }
 
 .display-school-second,

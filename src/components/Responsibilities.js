@@ -21,6 +21,7 @@ class Responsibilities extends Component {
     );
   };
 
+
   delete = (id) => {
     this.setState({ [id]: undefined }, () =>
       this.props.save("responsibilities", this.state)
@@ -40,7 +41,6 @@ class Responsibilities extends Component {
                 delete={this.delete}
               />
             );
-          return;
         })}
         <button type="button" onClick={this.handleAdd}>
           Add Responsibility
@@ -62,12 +62,10 @@ class Responsibility extends Component {
   handleChange = (e) => {
     this.setState({
       text: e.target.value,
-    });
+    }, () => this.props.save(this.props.id, this.state.text));
+    
   };
 
-  handleSave = () => {
-    this.props.save(this.props.id, this.state.text);
-  }
 
   render() {
     return (
@@ -77,7 +75,6 @@ class Responsibility extends Component {
           onChange={this.handleChange}
           value={this.state.text}
         />
-        <button type = "button" onClick = {this.handleSave}>Save</button>
         <button type="button" onClick={() => this.props.delete(this.props.id)}>
           Delete
         </button>
