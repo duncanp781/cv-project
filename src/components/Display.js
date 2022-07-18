@@ -68,7 +68,7 @@ class SchoolDisplay extends Component {
             {school.major}
             {school.major && school.gpa ? ", " : ""}
             {school.gpa ? "GPA: " : ""}
-            {school.gpa}job.responsibilities
+            {school.gpa}
           </span>
         </div>
       </div>
