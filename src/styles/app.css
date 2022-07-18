@@ -1,11 +1,41 @@
+:root{
+  --gray: #e5e7eb;
+  --white: #f9fafb;
+  --bgc: #075985;
+  --header: #1f2937;
+  --button: #d4d4d8;
+  --hover: #71717a;
+  --border: #d4d4d8;
+} 
+
 
 html,body,
 #root{
   height: 100%;
   padding: 0px;
   margin: 0px;
-  background-color: blue;
+  background-color: var(--bgc);
 }
+
+input{
+  border: 2px solid var(--border);
+
+  padding: 4px;
+  border-radius: 8px;
+}
+
+header{
+  position: fixed;
+  top: 0;
+  width: 100%;
+  background-color: var(--header);
+  color: var(--white);
+  padding: 18px;
+  font-size: 24px;
+  font-weight: bold;
+  z-index: 1;
+}
+
 
 .container{
   
@@ -14,6 +44,8 @@ html,body,
   height: 100%;
   padding: 0px;
   margin: 0px;
+  position: relative;
+  top: 50px;
 }
 
 
@@ -52,7 +84,7 @@ html,body,
   display: grid;
   grid-template-columns: 120px 1fr;
 }
-
+focus
 .job label[for = 'company'],
 .job label[for = 'title'],
 .job label[for = 'responsibilities']{
@@ -61,6 +93,7 @@ html,body,
 
 
 .title{
+  font-size: 18px;
   font-weight: bold;
 }
 
@@ -73,6 +106,14 @@ html,body,
   gap: 8px;
 }
 
+.school,
+.job{
+  padding: 8px;
+  border-radius: 8px;
+  box-shadow: 2px 2px 4px  4px rgba(0, 0, 0, 0.073);
+  background-color: var(--white);
+}
+
 .fields{
   align-items: center;
   padding: 32px;
@@ -81,7 +122,7 @@ html,body,
 .section{
   border-radius: 8px;
   padding: 16px;
-  background-color: white;
+  background-color: var(--gray);
   width: 100%;
 }
 
@@ -89,6 +130,11 @@ html,body,
   border: none;
   border-radius: 8px;
   padding: 8px;
+  background-color: var(--button);
+}
+
+button:active{
+  background-color: var(--hover);
 }
 
 
@@ -102,6 +148,7 @@ html,body,
 
 .responsibility{
   display: flex;
+  gap: 4px;
 }
 
 .responsibility input{
@@ -114,10 +161,10 @@ html,body,
   transform: translateY(-50%);
   width: calc(70vh * (8.5/11));
   height: 70vh;
-  border: 2px solid black;
+  box-shadow: 3px 3px 5px 5px rgba(0, 0, 0, 0.211);
   padding: 18px;
   position: fixed;
-  background-color: white;
+  background-color: var(--white);
   font-size: max(0.8rem, 2.4vh);
 }
 

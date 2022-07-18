@@ -28,27 +28,31 @@ class App extends Component {
 
   render() {
     return (
-      <div className="container">
-        <div className="fields">
-          <div class="section">
-            <span className="title">General: </span>
-            <General save={this.save} />
+      <div class="app">
+        <header>CV Application</header>
+        <div className="container">
+        
+          <div className="fields">
+            <div class="section">
+              <span className="title">General: </span>
+              <General save={this.save} />
+            </div>
+            <div class="section">
+              <span className="title">Education: </span>
+              <Education save={this.save} />
+            </div>
+            <div class="section">
+              <span className="title">Work: </span>
+              <Work save={this.save} />
+            </div>
           </div>
-          <div class="section">
-            <span className="title">Education: </span>
-            <Education save={this.save} />
+          <div className="preview">
+            <Display
+              general={this.state.general}
+              education={this.state.education}
+              work={this.state.work}
+            />
           </div>
-          <div class="section">
-            <span className="title">Work: </span>
-            <Work save={this.save} />
-          </div>
-        </div>
-        <div className="preview">
-          <Display
-            general={this.state.general}
-            education={this.state.education}
-            work={this.state.work}
-          />
         </div>
       </div>
     );

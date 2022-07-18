@@ -19,7 +19,7 @@ class Education extends Component {
       {
         [id]: info,
       },
-      () => this.props.save("education", this.state)
+      () => {this.props.save("education", this.state)}
     );
   };
 

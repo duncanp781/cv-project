@@ -68,7 +68,7 @@ class SchoolDisplay extends Component {
             {school.major}
             {school.major && school.gpa ? ", " : ""}
             {school.gpa ? "GPA: " : ""}
-            {school.gpa}
+            {school.gpa}job.responsibilities
           </span>
         </div>
       </div>
@@ -93,8 +93,24 @@ class WorkDisplay extends Component {
 }
 
 class JobDisplay extends Component {
+  constructor(props){
+    super(props);
+
+    this.state = {
+      hasError: false,
+    }
+  }
+  static getDerivedStateFromError(error){
+    return {hasError: true};
+  }
+  componentDidCatch(error){
+    console.log(error);
+  }
   render() {
     let { job } = this.props;
+    if (this.state.hasError){
+      return <div>Error</div>
+    }
     return (
       <div className="display-job">
         <div className="display-job-first">
@@ -107,10 +123,10 @@ class JobDisplay extends Component {
           <span className="display-job-time">
             {job.start} {job.start ? "-" : ""} {job.end ? job.end : "Present"}
           </span>
-          {Object.keys(job.responsibilities).length !== 0 && (
+          {job.responsibilities && Object.keys(job.responsibilities).length !== 0 && (
             <ul>
               {Object.keys(job.responsibilities).map((entry) => {
-                return <li>{job.responsibilities[entry]}</li>;
+                return <li key = {uniqid()}>{job.responsibilities[entry]}</li>;
               })}
             </ul>
           )}

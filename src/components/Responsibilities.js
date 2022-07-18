@@ -6,6 +6,7 @@ class Responsibilities extends Component {
     this.state = {};
   }
 
+
   handleAdd = () =>  {
     this.setState({
       [uniqid()]: {},
@@ -56,6 +57,7 @@ class Responsibility extends Component {
 
     this.state = {
       text: "",
+      hasError: false,
     };
   }
 
@@ -66,6 +68,13 @@ class Responsibility extends Component {
     
   };
 
+  static getDerivedStateFromError(error){
+    return {hasError: true}
+  }
+
+  componentDidCatch(error, errorInfo){
+    console.log(error, errorInfo);
+  }
 
   render() {
     return (
