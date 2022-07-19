@@ -1,156 +1,98 @@
-import React, { Component } from "react";
+import React, { useState, useEffect } from "react";
 import uniqid from "uniqid";
 import Responsibilities from "./Responsibilities";
+import TextInput from "./TextInput";
 
-class Work extends Component {
-  constructor(props) {
-    super(props);
+const Work = (props) => {
+  let { save } = props;
+  const [jobs, setJobs] = useState({});
 
-    this.state = {};
-  }
-
-  handleClick = (e) => {
-    this.setState({
+  const handleClick = () => {
+    setJobs({
+      ...jobs,
       [uniqid()]: {},
     });
   };
 
-  save = (id, info) => {
-    this.setState(
-      {
-        [id]: info,
-      },
-      () => this.props.save("work", this.state)
-    );
+  const remove = (id) => {
+    let temp = { ...jobs };
+    delete temp[id];
+    setJobs(temp);
   };
 
-
-  delete = (id) => {
-    this.setState({ [id]: undefined }, () =>
-      this.props.save("work", this.state)
-    );
-  };
-
-  render() {
-    return (
-      <div className="work">
-        {Object.keys(this.state).map((id) => {
-          if (this.state[id])
-            return (
-              <Job save={this.save} key={id} id={id} delete={this.delete} />
-            );
-          return null;
-        })}
-        <button onClick={this.handleClick}>Add Job</button>
-      </div>
-    );
-  }
-}
-
-class Job extends Component {
-  constructor(props) {
-    super(props);
-
-    this.state = {
-      company: "",
-      title: "",
-      start: "",
-      end: "",
-      responsibilities: {},
-    };
-  }
-
-  //This is more complicated than a normal save because we don't want to save the
-  //Undefined entries in responsibilities. So this scans through and removes them
-  save = (id, info) => {
-    this.setState(
-      {
-        [id]: info,
-      },
-      () => {
-        this.setState(
-          (prevState) => {
-            let obj = prevState.responsibilities;
-            Object.keys(obj).forEach((key) => {
-              if (obj[key] === undefined) {
-                delete obj[key];
-              }
-            });
-            return prevState;
-          }
-        );
-      }
-    );
-  };
-
-
-  handleChange = (e) => {
-    this.setState({
-      [e.target.id]: e.target.value,
+  const saveChild = (id, info) => {
+    setJobs({
+      ...jobs,
+      [id]: info,
     });
   };
 
-  handleSubmit = (e) => {
+  useEffect(() => {
+    save("work", jobs);
+  }, [save, jobs]);
+
+  return (
+    <div className="work">
+      {Object.keys(jobs).map((id) => {
+        if (jobs[id])
+          return <Job save={saveChild} key={id} id={id} remove={remove} />;
+        return null;
+      })}
+      <button onClick={handleClick}>Add Job</button>
+    </div>
+  );
+};
+
+const Job = (props) => {
+  let { remove, id, save } = props;
+  const [state, setState] = useState({
+    company: "",
+    title: "",
+    start: "",
+    end: "",
+    responsibilities: {},
+  });
+
+  const handleChange = (e) => {
+    setState({
+      ...state,
+      [e.target.name]: e.target.value,
+    });
+  };
+  const saveChild = (info) => {
+    if (state.responsibilities !== info) {
+      setState({
+        ...state,
+        responsibilities: info,
+      });
+    }
+  };
+
+  const handleSubmit = (e) => {
     e.preventDefault();
-    this.props.save(this.props.id, this.state);
+    save(id, state);
   };
 
-  handleDelete = () => {
-    this.props.delete(this.props.id);
-  };
+  return (
+    <div className="job">
+      <form onSubmit={handleSubmit}>
+        <TextInput name="company" text="Company:" change={handleChange} />
+        <TextInput name="start" text="Start:" change={handleChange} />
+        <TextInput name="end" text="End:" change={handleChange} />
+        <TextInput name="job-title" text="Title:" change={handleChange} />
+        <label htmlFor="responsibilities">
+          <span>Responsibilities: </span>
+          <Responsibilities save={saveChild} />
+        </label>
+        <button type="submit">Save</button>
+        <button type="button" onClick={() => remove(id)}>
+          Delete
+        </button>
+      </form>
+    </div>
+  );
+};
 
-  render() {
-    return (
-      <div className="job">
-        <form onSubmit={this.handleSubmit}>
-          <label htmlFor="company">
-            <span>Company:</span>
-            <input
-              type="text"
-              id="company"
-              onChange={this.handleChange}
-              value={this.state.company}
-            />
-          </label>
-          <label htmlFor="start">
-            <span>Start:</span>
-            <input
-              type="text"
-              id="start"
-              onChange={this.handleChange}
-              value={this.state.start}
-            />
-          </label>
-          <label htmlFor="end">
-            <span>End:</span>
-            <input
-              type="text"
-              id="end"
-              onChange={this.handleChange}
-              value={this.state.end}
-            />
-          </label>
-          <label htmlFor="title">
-            <span>Title: </span>
-            <input
-              type="text"
-              id="title"
-              onChange={this.handleChange}
-              value={this.state.title}
-            />
-          </label>
-          <label htmlFor="responsibilities">
-            <span>Responsibilities: </span>
-            <Responsibilities save={this.save} />
-          </label>
-          <button type="submit">Save</button>
-          <button type="button" onClick={this.handleDelete}>
-            Delete
-          </button>
-        </form>
-      </div>
-    );
-  }
-}
+
 
 export default Work;

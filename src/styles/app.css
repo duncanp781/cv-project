@@ -64,29 +64,29 @@ header{
   gap: 10px
 }
 
-.school form,
+.school-container form,
 .job form{
   display: grid;
   gap: 10px;
   grid-template-columns: 1fr 1fr;
 }
 
-.school label[for = 'school'],
-.school label[for = 'major'],
-.school label[for = 'gpa']{
+.school-container label[for = 'school'],
+.school-container label[for = 'major'],
+.school-container label[for = 'gpa']{
   grid-column: 1/-1;
 }
 
 
 .general label,
-.school label,
+.school-container label,
 .job label {
   display: grid;
   grid-template-columns: 120px 1fr;
 }
-focus
-.job label[for = 'company'],
-.job label[for = 'title'],
+
+.job label.company,
+.job label.job-title,
 .job label[for = 'responsibilities']{
   grid-column: 1/-1;
 }
@@ -106,7 +106,7 @@ focus
   gap: 8px;
 }
 
-.school,
+.school-container,
 .job{
   padding: 8px;
   border-radius: 8px;

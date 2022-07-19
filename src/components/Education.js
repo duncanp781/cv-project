@@ -1,128 +1,82 @@
-import React, { Component } from "react";
+import React, { useState } from "react";
 import uniqid from "uniqid";
+import TextInput from "./TextInput";
 
-class Education extends Component {
-  constructor(props) {
-    super(props);
+const Education = (props) => {
+  const [schools, setSchools] = useState({});
 
-    this.state = {};
-  }
-
-  handleClick = (e) => {
-    this.setState({
+  const handleClick = () => {
+    setSchools({
+      ...schools,
       [uniqid()]: {},
     });
   };
 
-  save = (id, info) => {
-    this.setState(
-      {
-        [id]: info,
-      },
-      () => {this.props.save("education", this.state)}
-    );
+  const saveChild = (id, info) => {
+    setSchools({
+      ...schools,
+      [id]: info,
+    });
+    props.save("education", schools);
   };
 
-  delete = (id) => {
-    this.setState({[id] : undefined}, () => this.props.save("education", this.state));
-  }
+  const remove = (id) => {
+    let temp = { ...schools };
+    delete temp[id];
+    setSchools(temp);
+  };
 
-  render() {
-    return (
-      <div className="education">
-        {Object.keys(this.state).map((id) => {
-          if (this.state[id]) return <School save={this.save} key={id} id={id} delete = {this.delete}/>;
-          return;
-        })}
-        <button onClick={this.handleClick}>Add Education</button>
-      </div>
-    );
-  }
-}
+  return (
+    <div className="education">
+      {Object.keys(schools).map((id) => {
+        if (schools[id])
+          return <School save={saveChild} key={id} id={id} delete={remove} />;
+        return null;
+      })}
+      <button onClick={handleClick}>Add Education</button>
+    </div>
+  );
+};
+const School = (props) => {
+  const [school, setSchool] = useState({
+    school: "",
+    start: "",
+    end: "",
+    major: "",
+    gpa: "",
+  });
 
-class School extends Component {
-  constructor(props) {
-    super(props);
-
-    this.state = {
-      school: "",
-      start: "",
-      end: "",
-      major: "",
-      gpa: "",
-    };
-  }
-
-  handleChange = (e) => {
-    this.setState({
-      [e.target.id]: e.target.value,
+  const handleChange = (e) => {
+    setSchool({
+      ...school,
+      [e.target.name]: e.target.value,
     });
   };
 
-  handleSubmit = (e) => {
+  const handleSubmit = (e) => {
     e.preventDefault();
-    this.props.save(this.props.id, this.state);
+    props.save(props.id, school);
   };
 
-  handleDelete = () => {
-    this.props.delete(this.props.id)
-  }
+  const handleRemove = () => {
+    props.delete(props.id);
+  };
 
-  render() {
-    return (
-      <div className="school">
-        <form onSubmit={this.handleSubmit}>
-          <label htmlFor = 'school'>
-            <span>School:</span>
-            <input
-              type="text"
-              id="school"
-              onChange={this.handleChange}
-              value={this.state.school}
-            />
-          </label>
-          <label htmlFor = 'start'>
-            <span>Start:</span>
-            <input
-              type="text"
-              id="start"
-              onChange={this.handleChange}
-              value={this.state.start}
-            />
-          </label>
-          <label htmlFor = 'end'>
-            <span>End:</span>
-            <input
-              type="text"
-              id="end"
-              onChange={this.handleChange}
-              value={this.state.end}
-            />
-          </label>
-          <label htmlFor = 'major'>
-            <span>Major:</span>
-            <input
-              type="text"
-              id="major"
-              onChange={this.handleChange}
-              value={this.state.major}
-            />
-          </label>
-          <label htmlFor = 'gpa'>
-            <span>GPA: </span>
-            <input
-              type="text"
-              id="gpa"
-              onChange={this.handleChange}
-              value={this.state.gpa}
-            />
-          </label>
-          <button type="submit">Save</button>
-          <button type = "button" onClick = {this.handleDelete}>Delete</button>
-        </form>
-      </div>
-    );
-  }
-}
+  return (
+    <div className="school-container">
+      <form onSubmit={handleSubmit}>
+        <TextInput name="school" text="School:" change={handleChange} />
+        <TextInput name="start" text="Start: " change={handleChange} />
+        <TextInput name="end" text="End:" change={handleChange} />
+        <TextInput name="major" text="Major:" change={handleChange} />
+        <TextInput name="gpa" text="GPA:" change={handleChange} />
+        <button type="submit">Save</button>
+        <button type="button" onClick={handleRemove}>
+          Delete
+        </button>
+      </form>
+    </div>
+  );
+};
 
 export default Education;
